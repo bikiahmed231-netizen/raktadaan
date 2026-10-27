@@ -1,173 +1,167 @@
-<!DOCTYPE html>
-<html lang="en">
+ <!DOCTYPE html>
+<html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raktadaan - Blood Donor Network</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; margin: 0; padding: 0; text-align: center; }
-        .container { max-width: 800px; margin: 50px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        h1 { color: #d32f2f; }
-        .buttons { display: flex; justify-content: center; gap: 20px; margin-top: 30px; }
-        .btn { padding: 15px 30px; font-size: 18px; border: none; border-radius: 8px; cursor: pointer; color: white; font-weight: bold; text-decoration: none; }
-        .btn-donor { background-color: #4CAF50; }
-        .btn-needer { background-color: #f44336; }
-        
-        .form-container { display: none; text-align: left; margin-top: 30px; }
-        input, select { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
-        .submit-btn { background-color: #d32f2f; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; width: 100%; margin-top: 10px;}
-        .back-btn { background-color: #757575; margin-top: 10px;}
-        
-        /* Loading spinner */
-        #loading { display: none; color: #d32f2f; font-weight: bold; margin-top: 15px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raktadaan - Blood Donation | All India</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family: Arial, sans-serif; }
+body { background:#fff5f5; }
+header { background:#c62828; color:white; padding:18px; text-align:center; }
+header h1 { font-size:30px; }
+header p { font-size:14px; opacity:0.9; }
+.container { max-width:950px; margin:20px auto; padding:15px; }
+.hero { text-align:center; background:white; padding:30px 20px; border-radius:15px; box-shadow:0 2px 12px rgba(0,0,0,0.1); }
+.hero h2 { color:#c62828; margin-bottom:10px; }
+.btn { padding:14px 25px; border:none; border-radius:10px; font-size:16px; font-weight:bold; cursor:pointer; margin:10px; color:white; }
+.btn-green { background:#2e7d32; }
+.btn-red { background:#c62828; }
+.card { background:white; padding:22px; border-radius:12px; margin-top:20px; box-shadow:0 2px 12px rgba(0,0,0,0.08); display:none; }
+input, select { width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:8px; font-size:15px; }
+label { font-weight:bold; font-size:14px; }
+.donor-card { background:#fff; border:1px solid #eee; border-radius:12px; padding:16px; margin:14px 0; display:flex; gap:16px; align-items:flex-start; box-shadow:0 1px 6px rgba(0,0,0,0.05); }
+.donor-card img { width:90px; height:90px; border-radius:50%; object-fit:cover; border:3px solid #c62828; }
+.donor-card h3 { color:#c62828; font-size:18px; }
+.donor-card p { font-size:14px; margin:3px 0; color:#333; }
+.badge { background:#fff3e0; color:#e65100; padding:4px 10px; border-radius:20px; font-size:12px; font-weight:bold; display:inline-block; margin-top:5px; }
+.call-btn { background:#2e7d32; color:white; padding:8px 14px; border-radius:20px; text-decoration:none; font-weight:bold; display:inline-block; margin:5px 5px 0 0; font-size:13px; }
+.star-btn { background:#FFC107; color:#000; border:none; padding:8px 14px; border-radius:20px; font-weight:bold; cursor:pointer; margin-top:5px; font-size:13px; }
+.top-badge { background:gold; color:#000; padding:3px 8px; border-radius:10px; font-size:12px; font-weight:bold; }
+</style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>🩸 Raktadaan</h1>
-        <p>Kisi ki jaan bachayein, apna khoon dein.</p>
+<header>
+<h1>❤️ Raktadaan</h1>
+<p>Kisi ki jaan bachayein, apna khoon dein - All India | Owner Full Access</p>
+</header>
 
-        <!-- Home Page Buttons -->
-        <div id="homeSection" class="buttons">
-            <button class="btn btn-donor" onclick="showForm('donor')">I want to Donate</button>
-            <button class="btn btn-needer" onclick="showNeeder()">I need Blood</button>
-        </div>
+<div class="container">
+<div class="hero" id="homeSection">
+<h2>Khoon Do, Jaan Bachao</h2>
+<p>India me kahi bhi, kisi ko bhi blood chahiye toh yahan se donor milega. Photo dekh ke pehchano, direct baat karo.</p>
+<button class="btn btn-green" onclick="showForm('donor')">I want to Donate</button>
+<button class="btn btn-red" onclick="showNeeder()">I need Blood</button>
+<p style="margin-top:12px; color:#666; font-size:13px;">Total Donors: <b id="totalCount">0</b> | All India Coverage</p>
+</div>
 
-        <!-- Donor Registration Form -->
-        <div id="donorForm" class="form-container">
-            <h2>Donor Registration</h2>
-            <form id="registerForm">
-                <label>Full Name:</label>
-                <input type="text" id="donorName" placeholder="Enter your name" required>
+<!-- DONOR FORM -->
+<div class="card" id="donorSection">
+<h2 style="color:#2e7d32;">Donor Registration - Full Detail</h2>
+<label>Full Name</label><input id="donorName" placeholder="Apna naam likhein">
+<label>Blood Group</label>
+<select id="donorBlood"><option value="">Select Blood Group</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select>
+<label>Phone Number</label><input id="donorPhone" type="tel" placeholder="10 digit mobile number">
+<label>State</label><input id="donorState" placeholder="Ex: Assam, Delhi, Maharashtra">
+<label>City / District</label><input id="donorLocation" placeholder="Ex: Tezpur, Guwahati">
+<label>Donor Photo - Needer pehchan sake, fraud na ho</label><input type="file" id="donorPhoto" accept="image/*">
+<button class="btn btn-green" style="width:100%;" onclick="registerDonor()">Register as Donor</button>
+<p id="loading" style="display:none; text-align:center; color:#c62828; font-weight:bold;">Saving data... Please wait.</p>
+<button onclick="goHome()" style="margin-top:10px; background:none; border:none; color:#666; cursor:pointer;">← Back</button>
+</div>
 
-                <label>Blood Group:</label>
-                <select id="donorBlood" required>
-                    <option value="">Select Blood Group</option>
-                    <option value="A+">A+</option>
-                    <option value="B+">B+</option>
-                    <option value="O+">O+</option>
-                    <option value="AB+">AB+</option>
-                    <option value="A-">A-</option>
-                    <option value="B-">B-</option>
-                    <option value="O-">O-</option>
-                    <option value="AB-">AB-</option>
-                </select>
+<!-- NEEDER SEARCH -->
+<div class="card" id="neederSection">
+<h2 style="color:#c62828;">Find Blood Donor - All India</h2>
+<label>Blood Group Chahiye</label>
+<select id="searchBlood"><option value="">All Blood Groups</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select>
+<label>State / City</label><input id="searchLocation" placeholder="Apna City likhein - Ex: Tezpur">
+<button class="btn btn-red" style="width:100%;" onclick="searchDonors()">Search Donor</button>
+<div id="results"></div>
+<button onclick="goHome()" style="margin-top:10px; background:none; border:none; color:#666; cursor:pointer;">← Back</button>
+</div>
+</div>
 
-                <label>Phone Number:</label>
-                <input type="tel" id="donorPhone" placeholder="Enter phone number" required>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-                <label>City / District:</label>
-                <input type="text" id="donorLocation" placeholder="e.g. Guwahati" required>
+const firebaseConfig = {
+  apiKey: "TUMHARA_API_KEY_YAHAN_DALO",
+  authDomain: "raktadaan-35d2f.firebaseapp.com",
+  projectId: "raktadaan-35d2f",
+  storageBucket: "raktadaan-35d2f.appspot.com",
+  messagingSenderId: "TUMHARA_SENDER_ID",
+  appId: "TUMHARA_APP_ID"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-                <label>Upload Photo:</label>
-                <input type="file" id="donorPhoto" accept="image/*">
+window.showForm = () => { document.getElementById('homeSection').style.display='none'; document.getElementById('donorSection').style.display='block'; }
+window.showNeeder = () => { document.getElementById('homeSection').style.display='none'; document.getElementById('neederSection').style.display='block'; loadAllDonors(); }
+window.goHome = () => { document.getElementById('donorSection').style.display='none'; document.getElementById('neederSection').style.display='none'; document.getElementById('homeSection').style.display='block'; }
 
-                <button type="submit" class="btn submit-btn" id="submitBtn">Register as Donor</button>
-                <div id="loading">Saving data... Please wait.</div>
-                <button type="button" class="btn back-btn" onclick="showHome()">Back</button>
-            </form>
-        </div>
-        
-        <!-- Needer Section (Temporary) -->
-        <div id="neederForm" class="form-container">
-            <h2>Blood Needed</h2>
-            <p>Abhi hum is feature par kaam kar rahe hain. Donor search jald hi aayega!</p>
-            <button class="btn back-btn" onclick="showHome()">Back</button>
-        </div>
+window.registerDonor = async () => {
+  const name = document.getElementById('donorName').value.trim();
+  const bloodGroup = document.getElementById('donorBlood').value;
+  const phone = document.getElementById('donorPhone').value.trim();
+  const state = document.getElementById('donorState').value.trim();
+  const location = document.getElementById('donorLocation').value.trim();
+  const photoFile = document.getElementById('donorPhoto').files[0];
+  if(!name || !bloodGroup || !phone || !location){ alert('Please sab field bharein'); return; }
+  document.getElementById('loading').style.display='block';
+  try {
+    let photoURL = "";
+    if(photoFile){
+      const formData = new FormData();
+      formData.append("file", photoFile);
+      formData.append("upload_preset", "raktadaan_preset");
+      const res = await fetch(`https://api.cloudinary.com/v1_1/ra8vhti0/image/upload`, { method:"POST", body: formData });
+      const data = await res.json();
+      photoURL = data.secure_url;
+    }
+    await addDoc(collection(db, "donors"), { name, bloodGroup, phone, state, location, photoURL, donationCount: 0, stars: 0, createdAt: new Date() });
+    alert("Dhanyawad! Aap Donor ban gaye. Aapki photo aur detail needer ko dikhegi.");
+    goHome();
+  } catch(e){ alert("Data save nahi ho paya. Error: " + e.message); }
+  document.getElementById('loading').style.display='none';
+}
 
-    </div>
+async function loadAllDonors(){
+  const snap = await getDocs(collection(db, "donors"));
+  document.getElementById('totalCount').innerText = snap.size;
+}
 
-    <!-- Firebase SDKs (Module type zaroori hai) -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+window.searchDonors = async () => {
+  const bg = document.getElementById('searchBlood').value;
+  const loc = document.getElementById('searchLocation').value.toLowerCase();
+  const snap = await getDocs(collection(db, "donors"));
+  let html = "";
+  snap.forEach(d => {
+    const data = d.data();
+    const id = d.id;
+    if(bg && data.bloodGroup !== bg) return;
+    if(loc && !(data.location||"").toLowerCase().includes(loc) && !(data.state||"").toLowerCase().includes(loc)) return;
+    const count = data.donationCount || 0;
+    const stars = data.stars || 0;
+    const starText = '⭐'.repeat(stars) || 'No star yet';
+    const isTop = count >= 5;
+    html += `<div class="donor-card">
+      <img src="${data.photoURL || 'https://via.placeholder.com/90'}">
+      <div style="flex:1;">
+        <h3>${data.name} - ${data.bloodGroup} ${isTop ? '<span class="top-badge">🏆 Top Donor</span>' : ''}</h3>
+        <p>📍 ${data.location}, ${data.state}</p>
+        <p>📞 ${data.phone}</p>
+        <p><b>🩸 ${count} baar Blood Diya</b> | ${starText} (${stars})</p>
+        <span class="badge">${count === 0 ? 'New Donor - Support Karein' : count >= 5 ? 'Trusted Donor - Bharosa Kar Sakte Ho' : 'Verified Donor'}</span><br>
+        <a class="call-btn" href="tel:${data.phone}">📞 Call Donor</a>
+        <a class="call-btn" style="background:#25D366;" href="https://wa.me/91${data.phone}">WhatsApp</a>
+        <button class="star-btn" onclick="giveStar('${id}', ${count}, ${stars})">⭐ Blood Mil Gaya - Star Do</button>
+        <p style="font-size:11px; color:#888; margin-top:5px;">Photo dekh ke pehchano, wahi insaan se baat hui hai confirm karo - fraud se bacho</p>
+      </div></div>`;
+  });
+  document.getElementById('results').innerHTML = html || "<p style='margin-top:15px;'>Koi donor nahi mila. Dusra city try karein.</p>";
+}
 
-        // Aapka Firebase Config (Jo aapne bheja hai)
-        const firebaseConfig = {
-            apiKey: "AIzaSyAOaDMVv57dKGVfn06r0SdNcoEL5NyAL3s",
-            authDomain: "raktadaan-35d21.firebaseapp.com",
-            projectId: "raktadaan-35d21",
-            storageBucket: "raktadaan-35d21.firebasestorage.app",
-            messagingSenderId: "825948757605",
-            appId: "1:825948757605:web:04ad92058e242f755b08c",
-            measurementId: "G-06X9S6VGD0"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const storage = getStorage(app);
-
-        // UI Functions
-        window.showForm = function(type) {
-            document.getElementById('homeSection').style.display = 'none';
-            if (type === 'donor') {
-                document.getElementById('donorForm').style.display = 'block';
-            }
-        }
-
-        window.showNeeder = function() {
-            document.getElementById('homeSection').style.display = 'none';
-            document.getElementById('neederForm').style.display = 'block';
-        }
-
-        window.showHome = function() {
-            document.getElementById('homeSection').style.display = 'flex';
-            document.getElementById('donorForm').style.display = 'none';
-            document.getElementById('neederForm').style.display = 'none';
-        }
-
-        // Form Submit aur Firebase mein Data Save karna
-        document.getElementById('registerForm').addEventListener('submit', async function(e) {
-            e.preventDefault(); 
-            
-            const submitBtn = document.getElementById('submitBtn');
-            const loading = document.getElementById('loading');
-            submitBtn.disabled = true;
-            loading.style.display = 'block';
-
-            const name = document.getElementById('donorName').value;
-            const blood = document.getElementById('donorBlood').value;
-            const phone = document.getElementById('donorPhone').value;
-            const location = document.getElementById('donorLocation').value;
-            const photoFile = document.getElementById('donorPhoto').files[0];
-
-            try {
-                let photoURL = "";
-
-                // Agar photo upload ki gayi hai
-                if (photoFile) {
-                    const storageRef = ref(storage, 'donor_photos/' + Date.now() + '_' + photoFile.name);
-                    await uploadBytes(storageRef, photoFile);
-                    photoURL = await getDownloadURL(storageRef);
-                }
-
-                // Data ko Firestore Database mein save karein
-                await addDoc(collection(db, "donors"), {
-                    name: name,
-                    bloodGroup: blood,
-                    phone: phone,
-                    location: location,
-                    photo: photoURL,
-                    donations: 0,
-                    registeredAt: new Date()
-                });
-
-                alert(`Dhanyawad ${name}! Aapka data successfully save ho gaya hai.`);
-                showHome(); 
-                this.reset(); 
-
-            } catch (error) {
-                console.error("Error saving data: ", error);
-                // Agar test mode nahi hai toh permission error aayega
-                alert("Data save nahi ho paya. Error: " + error.message);
-            } finally {
-                submitBtn.disabled = false;
-                loading.style.display = 'none';
-            }
-        });
-    </script>
+window.giveStar = async (id, count, stars) => {
+  try {
+    const ref = doc(db, "donors", id);
+    await updateDoc(ref, { donationCount: count + 1, stars: stars + 1 });
+    alert("Dhanyawad! Donor ko Star mil gaya. Uska count ab " + (count+1) + " ho gaya hai.");
+    searchDonors();
+  } catch(e){ alert("Star nahi de paye: " + e.message); }
+}
+loadAllDonors();
+</script>
 </body>
 </html>
